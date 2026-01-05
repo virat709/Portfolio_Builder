@@ -99,7 +99,7 @@ export async function generatePortfolioFromResume(file: File): Promise<Portfolio
             }
           },
           {
-            text: "Extract information from this resume and format it into a professional portfolio structure. IMPORTANT: Include 1-2 professional emojis in the 'tagline' and 'about' sections (e.g., 🚀, 💻, ✨) to make it more engaging. Categorize skills properly. If social links are missing, provide placeholders for LinkedIn, GitHub, and X (Twitter) based on the user's name."
+            text: "Extract information from this resume and format it into a professional portfolio structure. IMPORTANT: Include 1-2 professional emojis in the 'tagline' and 'about' sections (e.g., 🚀, 💻, ✨, 📈) to make the content pop. Categorize skills properly. If social links are missing, provide placeholders for LinkedIn, GitHub, and X (Twitter) based on the user's name."
           }
         ]
       }

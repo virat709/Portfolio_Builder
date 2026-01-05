@@ -10,23 +10,35 @@ interface PortfolioPreviewProps {
 }
 
 const SocialButton: React.FC<{ social: SocialLink }> = ({ social }) => {
-  const getBrandColors = (platform: string) => {
+  const getBrandStyles = (platform: string) => {
     const p = platform.toLowerCase();
     if (p.includes('linkedin')) return 'bg-[#0077B5] text-white hover:bg-[#005a8a]';
     if (p.includes('github')) return 'bg-[#333] text-white hover:bg-[#000]';
     if (p.includes('twitter') || p.includes(' x ')) return 'bg-black text-white hover:bg-slate-800';
     if (p.includes('instagram')) return 'bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888] text-white';
+    if (p.includes('portfolio') || p.includes('web')) return 'bg-indigo-600 text-white';
     return 'bg-slate-200 text-slate-700 hover:bg-slate-300';
+  };
+
+  const getEmoji = (platform: string) => {
+    const p = platform.toLowerCase();
+    if (p.includes('linkedin')) return '🔗';
+    if (p.includes('github')) return '🐙';
+    if (p.includes('twitter') || p.includes(' x ')) return '🐦';
+    if (p.includes('instagram')) return '📸';
+    return '🌐';
   };
 
   return (
     <motion.a
-      whileHover={{ y: -2 }}
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.95 }}
       href={social.url}
       target="_blank"
       rel="noreferrer"
-      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md ${getBrandColors(social.platform)}`}
+      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md ${getBrandStyles(social.platform)}`}
     >
+      <span>{getEmoji(social.platform)}</span>
       <span className="capitalize">{social.platform}</span>
     </motion.a>
   );
@@ -113,7 +125,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
             transition={{ delay: 0.5 }}
             className={`absolute -bottom-2 -right-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${style.bgAccent}`}
           >
-            Available 🟢
+            Open to Work 🟢✨
           </motion.div>
         </div>
         
@@ -150,7 +162,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
             className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start items-center"
           >
             <button className={`px-8 py-3 rounded-full font-bold transition-transform hover:scale-105 shadow-xl ${style.bgAccent}`}>
-              Hire Me 💬
+              Get In Touch ✉️
             </button>
             <div className="flex flex-wrap gap-3">
               {data.contact.socials.map((social, idx) => (
@@ -170,7 +182,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
         className="max-w-5xl mx-auto mb-20"
       >
         <h2 className={`text-3xl mb-8 flex items-center gap-3 ${style.heading}`}>
-          About Me 🙋‍♂️
+          My Story 📖✨
         </h2>
         <p className="text-xl leading-relaxed opacity-90">{data.about}</p>
       </motion.section>
@@ -184,14 +196,15 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
         className="max-w-5xl mx-auto mb-20"
       >
         <h2 className={`text-3xl mb-8 flex items-center gap-3 ${style.heading}`}>
-          Expertise 🛠️
+          Skill Arsenal 🛠️⚡
         </h2>
         <div className="flex flex-wrap gap-3">
           {data.skills.map((skill, idx) => (
             <motion.span 
               key={idx} 
               variants={itemVariants}
-              className={`px-4 py-2 rounded-lg text-sm font-medium ${style.card}`}
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              className={`px-4 py-2 rounded-lg text-sm font-medium shadow-sm cursor-default ${style.card}`}
             >
               {skill}
             </motion.span>
@@ -208,7 +221,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
           variants={slideUp}
         >
           <h2 className={`text-3xl mb-8 flex items-center gap-3 ${style.heading}`}>
-            Experience 🚀
+            Career Path 🚀💼
           </h2>
           <div className="space-y-8">
             {data.experiences.map((exp, idx) => (
@@ -223,7 +236,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
                 <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full ${style.bgAccent}`} />
                 <h3 className="font-bold text-xl">{exp.role}</h3>
                 <p className={`font-medium mb-2 ${style.accent}`}>{exp.company} • {exp.duration}</p>
-                <ul className="list-disc list-inside space-y-1 opacity-80 text-sm">
+                <ul className="list-disc list-inside space-y-2 opacity-80 text-sm">
                   {exp.description.map((item, i) => <li key={i}>{item}</li>)}
                 </ul>
               </motion.div>
@@ -238,7 +251,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
           variants={slideUp}
         >
           <h2 className={`text-3xl mb-8 flex items-center gap-3 ${style.heading}`}>
-            Education 🎓
+            Learning 🎓📚
           </h2>
           <div className="space-y-8">
             {data.education.map((edu, idx) => (
@@ -248,7 +261,7 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className={`p-6 rounded-xl ${style.card}`}
+                className={`p-6 rounded-xl shadow-sm ${style.card}`}
               >
                 <h3 className="font-bold text-xl">{edu.degree}</h3>
                 <p className="opacity-80">{edu.institution}</p>
@@ -268,22 +281,22 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
         className="max-w-5xl mx-auto mb-20"
       >
         <h2 className={`text-3xl mb-8 flex items-center gap-3 ${style.heading}`}>
-          Selected Projects 💻
+          Crafted Projects 💻✨
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {data.projects.map((project, idx) => (
             <motion.div 
               key={idx} 
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className={`p-8 rounded-2xl flex flex-col transition-all ${style.card}`}
+              whileHover={{ scale: 1.02, y: -5 }}
+              className={`p-8 rounded-2xl flex flex-col transition-all shadow-md hover:shadow-xl ${style.card}`}
             >
               <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
               <p className="opacity-80 mb-6 flex-1">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, i) => (
-                  <span key={i} className={`text-xs px-2 py-1 rounded border opacity-60`}>
-                    {tech}
+                  <span key={i} className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border opacity-70`}>
+                    # {tech}
                   </span>
                 ))}
               </div>
@@ -299,13 +312,13 @@ const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ data, theme, photoU
         viewport={{ once: true }}
         className="max-w-5xl mx-auto border-t border-slate-200 pt-12 pb-24 text-center"
       >
-        <p className="opacity-60 mb-4">Let's talk! 📧 {data.contact.email}</p>
-        <div className="flex justify-center gap-3 mb-8">
+        <p className="text-xl font-medium mb-6">Let's connect! 📧 {data.contact.email}</p>
+        <div className="flex justify-center flex-wrap gap-4 mb-10">
           {data.contact.socials.map((social, idx) => (
             <SocialButton key={idx} social={social} />
           ))}
         </div>
-        <p className="text-sm opacity-40">© {new Date().getFullYear()} {data.name}. Built with AI ✨</p>
+        <p className="text-sm opacity-50">Designed with ❤️ & AI ✨ © {new Date().getFullYear()}</p>
       </motion.footer>
     </div>
   );
