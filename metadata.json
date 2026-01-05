@@ -1,0 +1,7 @@
+{
+  "name": "InstantPortfolio AI",
+  "description": "Transform your resume into a stunning, professional portfolio website in seconds using Gemini AI. Upload your resume and photo, pick a theme, and get a ready-to-share digital presence.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
